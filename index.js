@@ -44,6 +44,8 @@ console.log(getFinals(fifaData));
 
 
 
+
+
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher-order function called getYears to do the following: 
 1. Receive an array
@@ -81,6 +83,7 @@ console.log(getWinners(fifaData));
 
 
 
+
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Use the higher-order function getWinnersByYear to do the following:
 1. Receive an array
@@ -91,17 +94,21 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
+ function getWinnersByYear(fifa, functionGetYears, functionGetWinners) {
 
-    function getWinnersByYear(getWinners , getYears) {
-        let winners = getWinners;
-        let years = getYears;
-    
-     
+    let years = functionGetYears(fifa);
+    let winners = functionGetWinners(fifa);
+    let  newArray = [];
+
+    for (let i = 0; i < fifa.length; i++){
+        let answer = `In ${years[i]}, ${winners[i]} won the world cup!`;
+        newArray.push(answer);
+    }
+    return newArray
     }
 
      
-     getWinnersByYear(getWinners(fifaData), getYears(fifaData));
-
+  
 
 
 
@@ -116,20 +123,44 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(data) {
+function getAverageGoals(data,b) {
+    let total = data.reduce(
+        function(accum, game)
+        {
+            return  parseInt(parseInt(accum) + parseInt(game['Home Team Goals'])+ parseInt(game['Away Team Goals']));
+        }
+    );
 
-    let homeAvg = Math.round(data.reduce((total, data) =>{
-        return total + data['Home Team Goals'];
-    }, 0) / data.length);
-    let awayAvg = Math.round(data.reduce((total, data) =>{
-        return total += data["Away Team Goals"];
-    }, 0) / data.length);
-    
-    console.log(`Average points scored by home team: ${homeAvg} Average points scored by away team: ${awayAvg}`)
+    console.log("getAverageGoals here");
+    console.log(data[0]);        
+    console.log(`+++++++total: ${total}`);
+    console.log(`+++++++length: ${data.length}`);
+
+    return total / data.length;
+
+
+
+
+
+
+
+
+
+
+    // let reducer = (accumulator, currentValue) => accumulator['Home Team Goals'] + currentValue;
+    // let total = data.reduce(reducer);
+    // let average = total / data.length;
+    // console.log("Average Goal Here");
+    // console.log(data[0]);
+    // console.log(data[0]['Home Team Goals']);
+    // console.log(`average: ${average}`);
+    // return average;
+
+
 
 };
 
-getAverageGoals(fifaData);
+
 
 
 /// 🥅 STRETCH 🥅 ///
