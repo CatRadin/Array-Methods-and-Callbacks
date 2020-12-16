@@ -123,42 +123,12 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(data,b) {
-    let total = data.reduce(
-        function(accum, game)
-        {
-            return  parseInt(parseInt(accum) + parseInt(game['Home Team Goals'])+ parseInt(game['Away Team Goals']));
-        }
-    );
-
-    console.log("getAverageGoals here");
-    console.log(data[0]);        
-    console.log(`+++++++total: ${total}`);
-    console.log(`+++++++length: ${data.length}`);
-
-    return total / data.length;
-
-
-
-
-
-
-
-
-
-
-    // let reducer = (accumulator, currentValue) => accumulator['Home Team Goals'] + currentValue;
-    // let total = data.reduce(reducer);
-    // let average = total / data.length;
-    // console.log("Average Goal Here");
-    // console.log(data[0]);
-    // console.log(data[0]['Home Team Goals']);
-    // console.log(`average: ${average}`);
-    // return average;
-
-
-
-};
+function getAverageGoals(data) {
+    let homeAverage = data.reduce((accumulator, item) => accumulator + item["Home Team Goals"], 0)  ;
+    let awayAverage = data.reduce((accumulator, item) => accumulator + item["Away Team Goals"], 0) ;
+    let average = (homeAverage + awayAverage) / data.length;
+    return `${Math.round(average * 100) / 100}`;
+}
 
 
 
